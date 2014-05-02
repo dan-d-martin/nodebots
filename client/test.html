@@ -7,6 +7,9 @@
 <script>
 var socket = io.connect('http://localhost:8080');
 $(function() {
+  var x=0,y=0;
+  var cell = function(x,y) { return $("#x" + x + "_y" + y); }
+
   $('#send').on('click', function() {
 	msg = $('#message').val();
 	//socket.emit('message', msg);
@@ -19,10 +22,56 @@ $(function() {
   socket.on('update', function(pos) {
 	$('#posX').html(pos.x);
 	$('#posY').html(pos.y);
+
+	cell(x,y).html('-');
+	x = pos.x;
+	y = pos.y;
+	cell(x,y).html('+');
   });
 });
 </script>
 	<input type='text' id='message' /><button id='send'>send</button>
 	<p>Pos: x: <span id='posX'>0</span> y: <span id='posY'>0</span></p>
+	<table>
+		<tr>
+			<td id="x0_y0">-</td>
+			<td id="x1_y0">-</td>
+			<td id="x2_y0">-</td>
+			<td id="x3_y0">-</td>
+			<td id="x4_y0">-</td>
+		</tr>
+		<tr>
+			<td id="x0_y1">-</td>
+			<td id="x1_y1">-</td>
+			<td id="x2_y1">-</td>
+			<td id="x3_y1">-</td>
+			<td id="x4_y1">-</td>
+		</tr>
+		<tr>
+			<td id="x0_y2">-</td>
+			<td id="x1_y2">-</td>
+			<td id="x2_y2">-</td>
+			<td id="x3_y2">-</td>
+			<td id="x4_y2">-</td>
+		</tr>
+		<tr>
+			<td id="x0_y3">-</td>
+			<td id="x1_y3">-</td>
+			<td id="x2_y3">-</td>
+			<td id="x3_y3">-</td>
+			<td id="x4_y3">-</td>
+		</tr>
+
+		<tr>
+			<td id="x0_y4">-</td>
+			<td id="x1_y4">-</td>
+			<td id="x2_y4">-</td>
+			<td id="x3_y4">-</td>
+			<td id="x4_y4">-</td>
+		</tr>
+	</table>
+
+
+
 </body>
 </html>
