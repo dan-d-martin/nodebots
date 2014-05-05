@@ -1,31 +1,39 @@
 var io = require('socket.io').listen(8080);
+var id = 0;
+
+var robots = {}
+
 io.sockets.on('connection', function(socket) {
-	pos = { x: 0, y: 0};
-	socket.on('message', function(data) {
-		console.log("message: " + data.message);
-		socket.emit("message", data.message);
+
+	socket.on('join', function(name) {
+		console.log(name + ' joined');
+		socket.name = name;
+		robots[name] = { x: 0, y: 0, name: name };
 	});
 	socket.on('right',function() {
-		pos.x++;
-		console.log('move right [' + pos.x + ']');
+		robots[socket.name].x++;
+
 	});
 	socket.on('left',function() {
-		pos.x--;
-		console.log('move left [' + pos.x + ']');
+		robots[socket.name].x--;
+
 	});
 	socket.on('down',function() {
-		pos.y++;
-		console.log('move down [' + pos.y + ']');
+		robots[socket.name].y++;
+
 	});
 	socket.on('up',function() {
-		pos.y--;
-		console.log('move up [' + pos.y + ']');
+		robots[socket.name].y--;
+
 	});
 
-	setInterval(function() {
-		io.sockets.emit('update', pos);
+});
+
+setInterval(function() {
+	for (name in robots) {
+		io.sockets.emit('update', robots[name]);
 		io.sockets.emit('turn');
-	}, 1000);
-});	
+	}
+}, 1000);
 
 

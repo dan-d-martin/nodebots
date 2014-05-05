@@ -23,53 +23,39 @@ $(function() {
 	$('#posX').html(pos.x);
 	$('#posY').html(pos.y);
 
-	cell(x,y).html('-');
+	cell(x,y).css('background-color', 'white');
+	cell(x,y).html(' ');
 	x = pos.x;
 	y = pos.y;
-	cell(x,y).html('+');
+	cell(x,y).css('background-color', 'green');
+	cell(x,y).html(pos.name);
   });
+
+
+  grid = function(a) {
+  	table = $('<table/>', {
+  		'border': 1,
+  	});
+  	for(y = 0; y < 40; y++) {
+  		row = $('<tr/>', {});
+  		for(x = 0; x < 80; x++) {
+  			c = $('<td/>', {
+  				id: 'x' + x + '_y' + y,
+  				text: ' ',
+  			});
+  			row.append(c);
+  		}
+  		table.append(row);
+  	}
+  	a.append(table);
+  }
+
+  grid($('#arena'));
 });
 </script>
 	<input type='text' id='message' /><button id='send'>send</button>
 	<p>Pos: x: <span id='posX'>0</span> y: <span id='posY'>0</span></p>
-	<table>
-		<tr>
-			<td id="x0_y0">-</td>
-			<td id="x1_y0">-</td>
-			<td id="x2_y0">-</td>
-			<td id="x3_y0">-</td>
-			<td id="x4_y0">-</td>
-		</tr>
-		<tr>
-			<td id="x0_y1">-</td>
-			<td id="x1_y1">-</td>
-			<td id="x2_y1">-</td>
-			<td id="x3_y1">-</td>
-			<td id="x4_y1">-</td>
-		</tr>
-		<tr>
-			<td id="x0_y2">-</td>
-			<td id="x1_y2">-</td>
-			<td id="x2_y2">-</td>
-			<td id="x3_y2">-</td>
-			<td id="x4_y2">-</td>
-		</tr>
-		<tr>
-			<td id="x0_y3">-</td>
-			<td id="x1_y3">-</td>
-			<td id="x2_y3">-</td>
-			<td id="x3_y3">-</td>
-			<td id="x4_y3">-</td>
-		</tr>
-
-		<tr>
-			<td id="x0_y4">-</td>
-			<td id="x1_y4">-</td>
-			<td id="x2_y4">-</td>
-			<td id="x3_y4">-</td>
-			<td id="x4_y4">-</td>
-		</tr>
-	</table>
+	<div id='arena'></div>
 
 
 
